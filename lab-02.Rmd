@@ -103,9 +103,11 @@ count(plastic_data_all, region)
 
 ```{r Ex3, message = FALSE}
 # Write your code here to answer exercise 3
-mutate(plastic_data_all, pct_mismanaged_plastic_ocean=mismanaged_plastic_ocean/mismanaged_plastic*100)
+plastic_data_all <- mutate(plastic_data_all, pct_mismanaged_plastic_ocean=(mismanaged_plastic_ocean/mismanaged_plastic)*100) %>% drop_na()
 
-
+plastic_data_all <- plastic_data_all %>% group_by(region) %>% mutate(med=median(pct_mismanaged_plastic_ocean)) %>% arrange(med)
+select(plastic_data_all, region, med)
+# Africa
 ```
 
 
